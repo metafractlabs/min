@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Love ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #ffcccb; /* Light pink background */
+      color: #8b0000; /* Dark red text */
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #ff69b4; /* Hot pink */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #ff1493; /* Darker pink */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    audio {
+      display: none; /* Hide the audio controls */
+    }
+  </style>
+</head>
+<body>
+  <!-- Slide 1: Introduction -->
+  <div class="slide active" id="slide1">
+    <h1>Hello, My Love ❤️</h1>
+    <p>It's our Valentine's Day! (Hoping we don't fight again 😂)</p>
+    <p>Would you like to proceed?</p>
+    <button onclick="nextSlide()">Yes</button>
+    <button onclick="alert('Aww, come on! Click Yes! 😘')">No</button>
+  </div>
+
+  <!-- Slide 2: Music and Love Message -->
+  <div class="slide" id="slide2">
+    <h1>For My Amazing Boyfriend ❤️</h1>
+    <p>Every time you click, I'll tell you something I love about you...</p>
+    <p id="message">Click anywhere to continue...</p>
+  </div>
+
+  <!-- Slide 3: Final Message -->
+  <div class="slide" id="slide3">
+    <h1>I Love You So Much ❤️</h1>
+    <p>You mean the world to me, and I want you to be the father of our Ginni and Oreo.</p>
+    <p>Forever yours, [Your Name]</p>
+  </div>
+
+  <!-- Audio for background music -->
+  <audio id="background-music" loop>
+    <source src="perfect.mp3" type="audio/mpeg">
+    <source src="falling-in-love-with-you.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    let currentSlide = 1;
+    const messages = [
+      "I love you more than anything in this world.",
+      "You are the most handsome man I've ever met.",
+      "I feel so lucky to have you in my life.",
+      "I still remember how we met in our childhood... it feels like destiny.",
+      "I promise I will never leave you, no matter what.",
+      "You make me the happiest person alive.",
+      "I can't wait to spend the rest of my life with you.",
+      "You are my everything. ❤️"
+    ];
+    let messageIndex = 0;
+
+    function nextSlide() {
+      const current = document.getElementById(`slide${currentSlide}`);
+      current.classList.remove('active');
+
+      currentSlide++;
+      const next = document.getElementById(`slide${currentSlide}`);
+      next.classList.add('active');
+
+      if (currentSlide === 2) {
+        // Start playing music on the second slide
+        const audio = document.getElementById('background-music');
+        audio.play();
+
+        // Add click event for messages
+        document.body.addEventListener('click', showNextMessage);
+      }
+    }
+
+    function showNextMessage() {
+      const messageElement = document.getElementById('message');
+      if (messageIndex < messages.length) {
+        messageElement.textContent = messages[messageIndex];
+        messageIndex++;
+      } else {
+        // Move to the final slide
+        nextSlide();
+        document.body.removeEventListener('click', showNextMessage);
+      }
+    }
+  </script>
+</body>
+</html>
